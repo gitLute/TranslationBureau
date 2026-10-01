@@ -22,7 +22,11 @@ jobs:
       # Отказ одного задания не прекращает выполнение остальных
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        # Метка ubuntu-24.04 указана явно вместо ubuntu-latest: подвижная
+        # метка 19 октября 2026 года переходит на Ubuntu 26.04, что изменит
+        # состав системного программного обеспечения виртуальной машины.
+        # Явное указание версии делает сборку воспроизводимой.
+        os: [ubuntu-24.04, windows-latest]
 
     steps:
       # Шаг 1. Получение исходного кода из репозитория
@@ -79,7 +83,7 @@ jobs:
   # Каждая платформа сохраняется в качестве отдельного артефакта.
   self-contained:
     name: Самодостаточное развёртывание ${{ matrix.platform }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     strategy:
       fail-fast: false
@@ -136,7 +140,7 @@ jobs:
   # Задание собирает образ контейнера с Web-приложением.
   docker:
     name: Сборка образа контейнера
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Получение исходного кода
@@ -159,7 +163,7 @@ jobs:
   # Запускается только при добавлении тега, наименование которого начинается с v.
   release:
     name: Создание выпуска
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [build, self-contained]
     if: startsWith(github.ref, 'refs/tags/v')
 
@@ -177,7 +181,7 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           files: |
-            artifacts/TranslationBureau-ubuntu-latest/**
+            artifacts/TranslationBureau-ubuntu-24.04/**
             artifacts/TranslationBureau-windows-latest/**
             artifacts/TranslationBureau-win-x64-self-contained/**
             artifacts/TranslationBureau-linux-x64-self-contained/**
