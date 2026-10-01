@@ -144,7 +144,7 @@ jobs:
 
       # Сборщик BuildKit требуется для выполнения Dockerfile.
       - name: Подготовка сборщика BuildKit
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Сборка образа
         uses: docker/build-push-action@v7
