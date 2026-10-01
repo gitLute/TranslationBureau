@@ -208,6 +208,9 @@ DocProject/Help/html
 
 # Click-Once directory
 publish/
+publish-win-x64/
+publish-linux-x64/
+deploy/
 
 # Publish Web Output
 *.[Pp]ublish.xml
@@ -429,3 +432,9 @@ FodyWeavers.xsd
 *.msp
 
 tmp/
+
+# Результаты выполнения модульных тестов и отчёты о покрытии кода
+TestResults/
+*.coverage
+*.trx
+coverage*.xml
