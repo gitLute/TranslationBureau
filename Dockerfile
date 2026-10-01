@@ -15,7 +15,10 @@ COPY src/TranslationBureau.Infrastructure/TranslationBureau.Infrastructure.cspro
      src/TranslationBureau.Infrastructure/
 COPY src/TranslationBureau.Web/TranslationBureau.Web.csproj \
      src/TranslationBureau.Web/
+COPY src/TranslationBureau.Tests/TranslationBureau.Tests.csproj \
+     src/TranslationBureau.Tests/
 COPY src/TranslationBureau.slnx src/
+COPY global.json global.json
 
 RUN dotnet restore src/TranslationBureau.slnx
 

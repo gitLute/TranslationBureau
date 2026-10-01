@@ -110,10 +110,19 @@ jobs:
 
       # Публикация самодостаточного пакета: среда выполнения включается
       # в состав пакета, поэтому целевой компьютер её не требует.
+      # Восстановление зависимостей выполняется повторно с учётом
+      # конкретной среды выполнения: параметр --no-build здесь недопустим,
+      # поскольку сборка без указания --runtime не создаёт результат
+      # для архитектуры linux-x64 или win-x64.
+      - name: Восстановление зависимостей для целевой среды выполнения
+        run: >
+          dotnet restore src/TranslationBureau.Web
+          --runtime ${{ matrix.platform }}
+
       - name: Публикация самодостаточного пакета
         run: >
           dotnet publish src/TranslationBureau.Web
-          --configuration Release --no-build
+          --configuration Release
           --runtime ${{ matrix.platform }} --self-contained true
           --output ./deploy/${{ matrix.platform }}
 
